@@ -1,0 +1,18 @@
+workflows:
+  safebuds-android:
+    name: SafeBuds Android CI/CD
+    environment:
+      flutter: stable
+      android: latest
+    scripts:
+      - name: Clean & Pub Get
+        script: |
+          flutter clean
+          flutter pub get
+      - name: Ensure Project Structure
+        script: flutter create .
+      - name: Build Android AppBundle
+        script: flutter build appbundle --release
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/*.apk
