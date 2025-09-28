@@ -1,18 +1,34 @@
 workflows:
   safebuds-android:
-    name: SafeBuds Android CI/CD
+    name: Safebuds Android CI/CD
+    max_build_duration: 60
     environment:
       flutter: stable
-      android: latest
+      groups:
+        - keystore_credentials
+        - firebase_credentials
     scripts:
-      - name: Clean & Pub Get
+      - name: Install dependencies
         script: |
           flutter clean
           flutter pub get
-      - name: Ensure Project Structure
-        script: flutter create .
-      - name: Build Android AppBundle
+      - name: Apply Firebase config
+        script: |
+          cp "$ANDROID_GOOGLE_SERVICES_JSON" android/app/google-services.json
+          echo "✅ Firebase config copied"
+      - name: Prepare Android signing
+        script: |
+          cat > android/key.properties <<EOF
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=$ANDROID_KEYSTORE
+          EOF
+          echo "✅ key.properties generated"
+      - name: Build APK
+        script: flutter build apk --release
+      - name: Build AppBundle
         script: flutter build appbundle --release
     artifacts:
-      - build/**/outputs/**/*.aab
-      - build/**/outputs/**/*.apk
+      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/bundle/release/*.aab
