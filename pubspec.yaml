@@ -1,0 +1,49 @@
+name: safebuds
+description: SafeBuds - AI 기반 이어폰 분실 방지 & 배터리 최적화
+publish_to: "none"
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 상태 관리 & 네트워크
+  provider: ^6.1.1
+  dio: ^5.4.0
+
+  # Firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.0
+  cloud_firestore: ^4.15.0
+
+  # 로컬 DB
+  sqflite: ^2.3.0
+  path_provider: ^2.1.2
+
+  # 블루투스 & 센서
+  flutter_blue_plus: ^1.31.17
+  sensors_plus: ^3.1.0
+
+  # 위치 & 지도
+  geolocator: ^10.1.0
+  google_maps_flutter: ^2.6.0
+
+  # 알림 & 미디어
+  flutter_local_notifications: ^17.2.2
+  image_picker: ^1.1.2
+
+  # 광고 & 결제
+  google_mobile_ads: ^5.1.0
+  in_app_purchase: ^3.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
